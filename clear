@@ -1,0 +1,9 @@
+#include <stdlib>
+
+char clear_string[10];
+void clear(char clear_string[10])
+{
+  scanf("%s", clear_string);
+  if (clear_string == "clear")
+    system("clear");
+}
