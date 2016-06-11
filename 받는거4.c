@@ -3,7 +3,7 @@
 #define stod(X) (X==0? 0: X-'0')
 
 char input[10000] = {0,};
-char fir[100][100] = {0,}, sec[100] = {0,};
+char fir[100][100] = {0,}, sec[100] = {0,}, an[100][100] = {0,};
 
 void reverse(char *arr, int len); // 계산하기 전 배열에 있는 수 뒤집는 함수
 
@@ -20,32 +20,36 @@ void reverse(char *arr, int len){
 void plus(int n);
 void plus(int n)
 {
+	
+	int i, up = 0;
 	int len;
 	char a[100][100] = {0,};
-	a[n][100] = fir[n][100];
-	a[n+1][100] = fir[n+1][100];
-	if( strlen(a[n]) > strlen(a[n+1]) )
-		len = strlen(a[n]);
-	else len = strlen(a[n+1]);
+	//a[n][100] = fir[n][100];
+	//a[n+1][100] = fir[n+1][100];
+	if( strlen(fir[n]) > strlen(fir[n+1]) )
+		len = strlen(fir[n]);
+	else len = strlen(fir[n+1]);
 
-	reverse(a[n], strlen(a[n]));
-	reverse(a[n+1], strlen(a[n+1]));
-
-	char an[100][100];
-	int i, up = 0;
-	for(i=0; i<len; i++){
-		an[n][i] = (stod(a[n][i] + stod(a[n+1][i])+up)%10+'0';
-		if((stod(a[n][i]) + stod(a[n+1][i]) + up) > 9)
+	reverse(fir[n], strlen(fir[n]));
+	reverse(fir[n+1], strlen(fir[n+1]));
+	
+	for(i=0; i<=len; i++){
+		an[n][i] = (stod(fir[n][i]) + stod(fir[n+1][i]) + up ) % 10 + '0';
+		if((stod(fir[n][i]) + stod(fir[n+1][i]) + up) > 9)
 			up=1;
-		else up=0;
+		else
+			up=0;
+		an[n][len+1] = '\0';
 	}
+
+	if(an[0][len] == '0') an[0][len] = 0;
+	reverse(an[0], strlen(an[0]));
 }
 
 int main()
 {
-	char input[10000] = {0,};
-	char fir[100][100] = {0,}, sec[100] = {0,};
 	int i, j, k, m;
+	int s = 0;
 
 	printf("수를 입력하세요 : ");
 	gets(input);	
@@ -68,17 +72,8 @@ int main()
     }
     sec[m] = '\0';
 
-	int s = 0;
+	
 	if (sec[s] == '+') plus(s);
-
-// 배열에 잘 들어갔당 이건 확인하는것들
-	printf("fir:%c\n", fir[0][0]);
-    printf("fir:%c\n", fir[1][1]);	
-    printf("sec:%c\n", sec[0]);
-    printf("sec2:%c\n", sec[1]);
-	printf("input:%s\n", input);
-	printf("%d\n", fir[1][0] + fir[1][1]);        
-    printf("%s %s %s %s\n", fir[0], fir[1], fir[2], fir[3]);
-	printf("%c %c %c\n", sec[0], sec[1], sec[2]);
+	printf("an : %s\n\n\n", an[0]);
 	return 0;
 }
