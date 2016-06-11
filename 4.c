@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void Clear(char input[]);
-
 int main()
 {
 	char A[9][1000];
